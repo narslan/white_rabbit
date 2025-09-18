@@ -36,7 +36,10 @@ defmodule WhiteRabbit.Store.ETS do
     match_spec = [
       {
         {{metric, :"$1"}, :"$2"},
-        [{:andalso, {:>=, :"$1", from_ts}, {:<=, :"$1", to_ts}}],
+        [
+          {:>=, :"$1", from_ts},
+          {:"=<", :"$1", to_ts}
+        ],
         [{{:"$1", :"$2"}}]
       }
     ]

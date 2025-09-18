@@ -39,4 +39,26 @@ defmodule WhiteRabbitTest do
       assert val > 0
     end
   end
+
+  describe "range tests" do
+    test "range returns points in interval", %{pid: pid} do
+      metric = "cpu"
+      now = System.system_time(:second)
+      WhiteRabbit.insert(pid, metric, now - 10, 1.0)
+      WhiteRabbit.insert(pid, metric, now - 5, 2.0)
+      WhiteRabbit.insert(pid, metric, now + 1, 3.0)
+
+      result = WhiteRabbit.range(metric, now - 20, now)
+      assert result == [{now - 10, 1.0}, {now - 5, 2.0}]
+    end
+
+    test "range_agg avg works", %{pid: pid} do
+      metric = "cpu_avg"
+      now = System.system_time(:second)
+      WhiteRabbit.insert(pid, metric, now, 2)
+      WhiteRabbit.insert(pid, metric, now + 1, 4)
+
+      assert WhiteRabbit.range_agg(metric, now, now + 1, :avg) == 3.0
+    end
+  end
 end

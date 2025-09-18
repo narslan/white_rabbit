@@ -24,6 +24,16 @@ defmodule WhiteRabbit.Coordinator do
     {:reply, ETS.get(metric, ts), state}
   end
 
+  def handle_call({:range, metric, from_ts, to_ts}, _from, state) do
+    result = WhiteRabbit.Store.ETS.range(metric, from_ts, to_ts)
+    {:reply, result, state}
+  end
+
+  def handle_call({:range_agg, metric, from_ts, to_ts, agg}, _from, state) do
+    result = WhiteRabbit.Store.ETS.range_agg(metric, from_ts, to_ts, agg)
+    {:reply, result, state}
+  end
+
   def insert(pid \\ __MODULE__, metric, ts, value) do
     GenServer.cast(pid, {:insert, metric, ts, value})
   end
@@ -31,4 +41,10 @@ defmodule WhiteRabbit.Coordinator do
   def get(pid \\ __MODULE__, metric, ts) do
     GenServer.call(pid, {:get, metric, ts})
   end
+
+  def range(metric, from_ts, to_ts),
+    do: GenServer.call(__MODULE__, {:range, metric, from_ts, to_ts})
+
+  def range_agg(metric, from_ts, to_ts, agg),
+    do: GenServer.call(__MODULE__, {:range_agg, metric, from_ts, to_ts, agg})
 end
