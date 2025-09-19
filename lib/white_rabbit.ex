@@ -17,8 +17,9 @@ defmodule WhiteRabbit do
     Coordinator.get(pid, metric, ts)
   end
 
-  def range(metric, from_ts, to_ts), do: WhiteRabbit.Coordinator.range(metric, from_ts, to_ts)
+  def range(pid, metric, from_ts, to_ts),
+    do: WhiteRabbit.Coordinator.range(pid, metric, from_ts, to_ts)
 
-  def range_agg(metric, from_ts, to_ts, agg),
-    do: WhiteRabbit.Coordinator.range_agg(metric, from_ts, to_ts, agg)
+  def range_agg(pid, metric, from_ts, to_ts, agg),
+    do: WhiteRabbit.Coordinator.range_agg(pid, metric, from_ts, to_ts, agg)
 end

@@ -42,9 +42,9 @@ defmodule WhiteRabbit.Coordinator do
     GenServer.call(pid, {:get, metric, ts})
   end
 
-  def range(metric, from_ts, to_ts),
-    do: GenServer.call(__MODULE__, {:range, metric, from_ts, to_ts})
+  def range(pid \\ __MODULE__, metric, from_ts, to_ts),
+    do: GenServer.call(pid, {:range, metric, from_ts, to_ts})
 
-  def range_agg(metric, from_ts, to_ts, agg),
-    do: GenServer.call(__MODULE__, {:range_agg, metric, from_ts, to_ts, agg})
+  def range_agg(pid \\ __MODULE__, metric, from_ts, to_ts, agg),
+    do: GenServer.call(pid, {:range_agg, metric, from_ts, to_ts, agg})
 end

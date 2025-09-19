@@ -38,3 +38,42 @@ Value: Wert
 ETS unterstützt schnelle lookup, select, match_object.
 
 Abfragen nach {series, ts} oder Zeitintervallen sind easy.
+
+Ideen für „buntere“ Metriken
+
+CPU-Auslastung pro Scheduler
+
+mit :erlang.statistics(:runtime) und :erlang.statistics(:wall_clock)
+
+daraus eine kleine Formel für % CPU
+
+das schwankt natürlicherweise schon etwas.
+
+Nachrichten in der Prozess-Mailbox
+
+Nimm einen Demo-GenServer, der zufällig Nachrichten verarbeitet.
+
+Process.info(pid, :message_queue_len) schwankt dynamisch.
+
+Simulation / Dummy-Last
+
+bau einen Worker-Prozess, der in Schleifen irgendwas rechnet (z.B. Fibonacci, Sortieren, Random-Noise).
+
+dessen Reduktionen (:reductions aus Process.info/2) hochlaufen.
+
+WhiteRabbit als Timeseries-Benchmark
+
+starte eine Routine, die jede Sekunde 100–1000 Events in WhiteRabbit schreibt.
+
+Messe Durchsatz + Latenz.
+
+dann zeigt die Chart richtige „Zacken“.
+
+Noise-Generator (nur fürs Demo)
+
+wenn du gar nichts messen willst, kannst du einfach
+
+val = 50 + :rand.normal() * 10
+
+
+erzeugen – sieht aus wie echte Messdaten.

@@ -2,7 +2,6 @@ defmodule WhiteRabbit.Store.ETS do
   @table :timeseries
 
   def start_link do
-    # falls Tabelle schon existiert, nichts tun (hilfreich beim Test)
     case :ets.whereis(@table) do
       :undefined ->
         :ets.new(@table, [:named_table, :public, :ordered_set])
