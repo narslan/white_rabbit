@@ -3,7 +3,8 @@ defmodule WhiteRabbit.Coordinator do
   alias WhiteRabbit.Store.ETS
 
   def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, opts, name: __MODULE__)
+    name = Keyword.get(opts, :name, :white_rabbit)
+    GenServer.start_link(__MODULE__, opts, name: name)
   end
 
   @impl true
