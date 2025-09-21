@@ -7,10 +7,7 @@ defmodule WhiteRabbit.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: WhiteRabbit.Worker.start_link(arg)
-      # {WhiteRabbit.Worker, arg}
-    ]
+    children = []
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
